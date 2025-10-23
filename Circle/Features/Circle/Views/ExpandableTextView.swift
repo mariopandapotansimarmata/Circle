@@ -22,11 +22,9 @@ struct ExpandableTextInline: View {
         
         var s = AttributedString(baseString)
         
-        // Styling teks utama
         s.foregroundColor = Color(DesignColors.hostedBy)
         s.font = .custom(DesignFonts.InterLight, size: 12)
         
-        // Cari dan ubah bagian "more" jadi link
         if let range = s.range(of: "more") {
             s[range].foregroundColor = Color(DesignColors.hostedBy)
             s[range].font = .custom(DesignFonts.InterBold, size: 12)
