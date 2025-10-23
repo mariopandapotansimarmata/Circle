@@ -9,4 +9,7 @@ class DesignImages {
     static let circleLogo = "circleLogo"
     static let logoutIcon = "logoutIcon"
     static let personImage = "personImage"
+    static let chatIcon = "chatIcon"
+    static let loveIcon = "loveIcon"
+    static let infoIcon = "infoIcon"
 }

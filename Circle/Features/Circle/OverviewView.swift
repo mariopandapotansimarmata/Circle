@@ -11,8 +11,8 @@ struct OverviewView: View {
     
     let cardItems: [CardData] = [
         CardData(text1: "Access", text2: "65 Days Left", text3: "3 months from purchase Ends Oct 31st, 2025"),
-        CardData(text1: "Access", text2: "10 members", text3: nil),
-        CardData(text1: "Access", text2: "Private", text3: "Req. to join"),
+        CardData(text1: "Members", text2: "10 members", text3: nil),
+        CardData(text1: "Visibility", text2: "Private", text3: "Req. to join"),
         CardData(text1: "Language", text2: "English", text3: "En"),
         CardData(text1: "Time zone", text2: "Europe", text3: "Local time")
     ]
@@ -63,16 +63,30 @@ struct OverviewView: View {
                 .padding(.horizontal,20)
                 
                 ScrollView(.horizontal, showsIndicators: false) {
-                    HStack {
+                    HStack (spacing: 12){
                         ForEach(cardItems) { item in
-                            CardHeader(text1: item.text1, text2: item.text2, text3: item.text3)
+                            CardHeaderView(text1: item.text1, text2: item.text2, text3: item.text3)
                         }
                         Spacer().frame(width: 20)
                     }
                     .padding(.leading, 20)
                 }
+                
+                HStack{
+                    ChipView(text: "User posts", status: true)
+                    ChipView(text: "User posts", status: true)
+                }
+                .padding(.horizontal, 20)
+                
+                VStack(alignment: .leading, spacing: 15){
+                    PostCardView()
+                    RulesCardView()
+                    InfoCardView()
+                }
+                .padding(.horizontal, 20)
             }
         }
+        .contentMargins(.top, 16)
     }
 }
 

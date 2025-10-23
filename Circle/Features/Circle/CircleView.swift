@@ -17,25 +17,18 @@ struct CircleView: View {
     var body: some View {
         NavigationStack{
             ZStack {
-                // background Color
-                VStack {
-                    
-                }
-                .frame(maxWidth: .infinity)
-                .frame(maxHeight: .infinity)
-                .background(
-                    LinearGradient(
-                        colors: [Color(.background2), Color(.background1)],
-                        startPoint: .top,
-                        endPoint: .bottom
-                    )
+                LinearGradient(
+                    colors: [Color(.background2), Color(.background1)],
+                    startPoint: .top,
+                    endPoint: .bottom
                 )
+                .ignoresSafeArea()
                 
                 // TabView
-                VStack{
-                    HStack (spacing: 20){
+                VStack(spacing: 0) {
+                    HStack(spacing: 20) {
                         ForEach(Array(tabMenu.enumerated()), id: \.offset) { index, item in
-                            TabService(text: item, isSelected: currentIndex == index)
+                            TabServiceView(text: item, isSelected: currentIndex == index)
                                 .onTapGesture {
                                     withAnimation (.interactiveSpring){
                                         currentIndex = index
@@ -43,25 +36,27 @@ struct CircleView: View {
                                 }
                         }
                     }
-                    .padding()
+                    .padding(.horizontal, 20)
+                    .padding(.top, 20)
                     .frame(maxWidth: .infinity,alignment: .leading)
                     
                     //Views
-                    VStack{
-                        TabView(selection: $currentIndex) {
-                            OverviewView()
-                                .tag(0)
-                            Text("Search View")
-                                .tag(1)
-                            Text("Profile View")
-                                .tag(2)
-                        }
-                        .tabViewStyle(.page)
-                        .onAppear {
-                            UIPageControl.appearance().isHidden = true
-                        }
+                    TabView(selection: $currentIndex) {
+                        OverviewView()
+                            .tag(0)
+                        Text("Posts")
+                            .tag(1)
+                        Text("Posts")
+                            .tag(2)
+
                     }
-                } .toolbar {
+                    .frame(maxWidth: .infinity,alignment: .leading)
+                    .tabViewStyle(.page)
+                    .onAppear {
+                        UIPageControl.appearance().isHidden = true
+                    }
+                }
+                .toolbar {
                     ToolbarItem(placement: .topBarLeading) {
                         HStack{
                             Image(DesignImages.circleLogo)
@@ -78,6 +73,7 @@ struct CircleView: View {
                     
                 }
             }
+            .ignoresSafeArea(.container, edges: .bottom)
         }
     }
 }

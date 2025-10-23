@@ -6,28 +6,15 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		5C11C7322EA90D1B00A9C76E /* Inter-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5C11C7312EA90D1B00A9C76E /* Inter-Regular.ttf */; };
-		5C11C7342EA90D7300A9C76E /* Inter-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5C11C7332EA90D7300A9C76E /* Inter-Medium.ttf */; };
-		5C11C7362EA90D7D00A9C76E /* Inter-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5C11C7352EA90D7D00A9C76E /* Inter-Bold.ttf */; };
-		5C11C7382EA90DCA00A9C76E /* Inter-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5C11C7372EA90DCA00A9C76E /* Inter-SemiBold.ttf */; };
-		5C11C9202EA9541B00A9C76E /* Inter-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5C11C91F2EA9541B00A9C76E /* Inter-Light.ttf */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXFileReference section */
-		5C11C7312EA90D1B00A9C76E /* Inter-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Regular.ttf"; sourceTree = "<group>"; };
-		5C11C7332EA90D7300A9C76E /* Inter-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Medium.ttf"; sourceTree = "<group>"; };
-		5C11C7352EA90D7D00A9C76E /* Inter-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Bold.ttf"; sourceTree = "<group>"; };
-		5C11C7372EA90DCA00A9C76E /* Inter-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-SemiBold.ttf"; sourceTree = "<group>"; };
 		5C11C8082EA939DE00A9C76E /* Circle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Circle.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		5C11C91F2EA9541B00A9C76E /* Inter-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Light.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		5C11C4BE2EA9041400A9C76E /* Exceptions for "Circle" folder in "Circle" target */ = {
+		5C11C94F2EAA5B5B00A9C76E /* Exceptions for "Circle" folder in "Circle" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Info.plist,
+				"Supporting Files/Info.plist",
 			);
 			target = 5C11C4AE2EA901C400A9C76E /* Circle */;
 		};
@@ -37,7 +24,7 @@
 		5C11C4B12EA901C400A9C76E /* Circle */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				5C11C4BE2EA9041400A9C76E /* Exceptions for "Circle" folder in "Circle" target */,
+				5C11C94F2EAA5B5B00A9C76E /* Exceptions for "Circle" folder in "Circle" target */,
 			);
 			path = Circle;
 			sourceTree = "<group>";
@@ -59,12 +46,7 @@
 			isa = PBXGroup;
 			children = (
 				5C11C4B12EA901C400A9C76E /* Circle */,
-				5C11C7312EA90D1B00A9C76E /* Inter-Regular.ttf */,
-				5C11C7332EA90D7300A9C76E /* Inter-Medium.ttf */,
-				5C11C7352EA90D7D00A9C76E /* Inter-Bold.ttf */,
-				5C11C7372EA90DCA00A9C76E /* Inter-SemiBold.ttf */,
 				5C11C8082EA939DE00A9C76E /* Circle.app */,
-				5C11C91F2EA9541B00A9C76E /* Inter-Light.ttf */,
 			);
 			sourceTree = "<group>";
 		};
@@ -132,11 +114,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5C11C7322EA90D1B00A9C76E /* Inter-Regular.ttf in Resources */,
-				5C11C7362EA90D7D00A9C76E /* Inter-Bold.ttf in Resources */,
-				5C11C7382EA90DCA00A9C76E /* Inter-SemiBold.ttf in Resources */,
-				5C11C9202EA9541B00A9C76E /* Inter-Light.ttf in Resources */,
-				5C11C7342EA90D7300A9C76E /* Inter-Medium.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,7 +261,7 @@
 				DEVELOPMENT_TEAM = 7WUR3QM973;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Circle/Info.plist;
+				INFOPLIST_FILE = "Circle/Supporting Files/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -317,7 +294,7 @@
 				DEVELOPMENT_TEAM = 7WUR3QM973;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Circle/Info.plist;
+				INFOPLIST_FILE = "Circle/Supporting Files/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

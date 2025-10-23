@@ -1,5 +1,5 @@
 //
-//  TabService.swift
+//  TabServiceView.swift
 //  Circle
 //
 //  Created by Mario Pandapotan Simarmata on 23/10/25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TabService: View {
+struct TabServiceView: View {
     var text: String
     var isSelected: Bool
     var body: some View {
@@ -18,8 +18,12 @@ struct TabService: View {
             
             RoundedRectangle(cornerRadius: .infinity)
                 .frame(height: 1)
-            
                 .foregroundStyle(isSelected ? Color(DesignColors.tabIndicator) : .clear)
-        }.fixedSize()
+        }
+        .fixedSize()
     }
+}
+
+#Preview {
+    CircleView()
 }

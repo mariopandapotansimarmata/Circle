@@ -14,4 +14,7 @@ class DesignColors {
     static let hostedBy = "hostedBy"
     static let ellipsisColor = "ellipsisColor"
     static let cardBorder = "cardBorder"
+    static let greenChip = "greenChip"
+    static let host = "host"
+    static let pinned = "pinned"
 }

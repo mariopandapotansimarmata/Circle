@@ -16,13 +16,16 @@ struct ExpandableTextInline: View {
             if expanded {
                 Text(fullText)
                     .font(.custom(DesignFonts.InterLight, size: 12))
+                    .foregroundStyle(Color(DesignColors.hostedBy))
             } else {
                 Text(truncatedText(fullText))
                     .font(.custom(DesignFonts.InterLight, size: 12))
-                    + Text(" more")
-                        .font(.custom(DesignFonts.InterBold, size: 12))
-                        .foregroundColor(Color(DesignColors.ellipsisColor))
-                        
+                    .foregroundStyle(Color(DesignColors.hostedBy))
+                +
+                Text(" more")
+                    .font(.custom(DesignFonts.InterBold, size: 12))
+                    .foregroundColor(Color(DesignColors.hostedBy))
+                
             }
         }
         .onTapGesture {
