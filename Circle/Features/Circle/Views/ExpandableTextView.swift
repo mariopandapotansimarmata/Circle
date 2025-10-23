@@ -6,41 +6,63 @@
 //
 
 import SwiftUI
-import SwiftUI
+
 struct ExpandableTextInline: View {
     let fullText: String
     @State private var expanded = false
     
+    var truncatedMessage: AttributedString {
+        let limit = 80
+        if fullText.count <= limit {
+            return AttributedString(fullText)
+        }
+        
+        let index = fullText.index(fullText.startIndex, offsetBy: limit)
+        let baseString = String(fullText[..<index]) + "... more"
+        
+        var s = AttributedString(baseString)
+        
+        // Styling teks utama
+        s.foregroundColor = Color(DesignColors.hostedBy)
+        s.font = .custom(DesignFonts.InterLight, size: 12)
+        
+        // Cari dan ubah bagian "more" jadi link
+        if let range = s.range(of: "more") {
+            s[range].foregroundColor = Color(DesignColors.hostedBy)
+            s[range].font = .custom(DesignFonts.InterBold, size: 12)
+            s[range].link = URL(string: "app://expand")
+        }
+        
+        return s
+    }
+    
     var body: some View {
-        VStack(alignment: .leading) {
+        Group {
             if expanded {
                 Text(fullText)
                     .font(.custom(DesignFonts.InterLight, size: 12))
-                    .foregroundStyle(Color(DesignColors.hostedBy))
-            } else {
-                Text(truncatedText(fullText))
-                    .font(.custom(DesignFonts.InterLight, size: 12))
-                    .foregroundStyle(Color(DesignColors.hostedBy))
-                +
-                Text(" more")
-                    .font(.custom(DesignFonts.InterBold, size: 12))
                     .foregroundColor(Color(DesignColors.hostedBy))
-                
+            } else {
+                Text(truncatedMessage)
+                    .multilineTextAlignment(.leading)
+                    .environment(\.openURL, OpenURLAction { url in
+                        if url.scheme == "app", url.host == "expand" {
+                            withAnimation(.easeInOut) {
+                                expanded = true
+                            }
+                            return .handled
+                        }
+                        return .systemAction
+                    })
             }
         }
-        .onTapGesture {
-            expanded = true }
-        .animation(.easeInOut, value: expanded)
     }
-    
-    func truncatedText(_ text: String) -> String {
-        let limit = 80
-        if text.count > limit {
-            let index = text.index(text.startIndex, offsetBy: limit)
-            return String(text[..<index]) + "..."
-        }
-        return text
-    }
+}
+
+#Preview {
+    ExpandableTextInline(
+        fullText: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse potenti. Proin dictum pretium nibh, id varius risus viverra sit amet. Nulla facilisi."
+    )
 }
 
 
