@@ -13,4 +13,5 @@ class DesignColors {
     static let borderT2 = "borderT2"
     static let hostedBy = "hostedBy"
     static let ellipsisColor = "ellipsisColor"
+    static let cardBorder = "cardBorder"
 }

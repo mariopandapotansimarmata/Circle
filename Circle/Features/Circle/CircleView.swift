@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  CircleView.swift
 //  Circle
 //
 //  Created by Mario Pandapotan Simarmata on 22/10/25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct CircleView: View {
     
     @State private var currentIndex: Int = 0
     @State private var selectedTab: String = "About"
@@ -55,7 +55,11 @@ struct ContentView: View {
                                 .tag(1)
                             Text("Profile View")
                                 .tag(2)
-                        }.tabViewStyle(.page)
+                        }
+                        .tabViewStyle(.page)
+                        .onAppear {
+                            UIPageControl.appearance().isHidden = true
+                        }
                     }
                 } .toolbar {
                     ToolbarItem(placement: .topBarLeading) {
@@ -77,25 +81,9 @@ struct ContentView: View {
         }
     }
 }
-struct TabService: View {
-    var text: String
-    var isSelected: Bool
-    var body: some View {
-        VStack {
-            Text(text)
-                .font(.custom(isSelected ? DesignFonts.InterRegular: DesignFonts.InterLight, size: 12))
-                .foregroundStyle(isSelected ? Color.black : Color.tabDeactive)
-            
-            RoundedRectangle(cornerRadius: .infinity)
-                .frame(height: 1)
-            
-                .foregroundStyle(isSelected ? Color(DesignColors.tabIndicator) : .clear)
-        }.fixedSize()
-    }
-}
 
 
 #Preview {
-    ContentView()
+    CircleView()
 }
 

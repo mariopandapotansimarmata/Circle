@@ -8,9 +8,18 @@
 import SwiftUI
 
 struct OverviewView: View {
+    
+    let cardItems: [CardData] = [
+        CardData(text1: "Access", text2: "65 Days Left", text3: "3 months from purchase Ends Oct 31st, 2025"),
+        CardData(text1: "Access", text2: "10 members", text3: nil),
+        CardData(text1: "Access", text2: "Private", text3: "Req. to join"),
+        CardData(text1: "Language", text2: "English", text3: "En"),
+        CardData(text1: "Time zone", text2: "Europe", text3: "Local time")
+    ]
+    
     var body: some View {
         ScrollView{
-            VStack {
+            VStack (alignment: .leading , spacing: 16){
                 HStack (spacing: 10){
                     ProfileImageView()
                     
@@ -38,46 +47,35 @@ struct OverviewView: View {
                     
                     Spacer()
                     
-                    Button { }label: {
+                    Button {
+                        
+                    }label: {
                         Image(systemName: "ellipsis")
                     }.foregroundStyle(Color(DesignColors.ellipsisColor))
-                    
                 }.padding(.horizontal, 20)
+                
+                VStack(alignment: .leading, spacing: 5) {
+                    Text("30-Day Mindfulness Challenge")
+                        .font(.custom(DesignFonts.InterMedium, size: 18))
+                    
+                    ExpandableTextInline(fullText: "This 30-minute mindfulness practice is designed to help you slow down, reset, and reconnect with yourself. Together We Can do amazing things!")
+                }
+                .padding(.horizontal,20)
+                
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        ForEach(cardItems) { item in
+                            CardHeader(text1: item.text1, text2: item.text2, text3: item.text3)
+                        }
+                        Spacer().frame(width: 20)
+                    }
+                    .padding(.leading, 20)
+                }
             }
         }
     }
 }
 
 #Preview {
-    ContentView()
-}
-
-struct ProfileImageView: View {
-    var body: some View {
-        ZStack (alignment: .bottom){
-            ZStack (alignment: .bottom){
-                Image(DesignImages.personImage)
-            }
-            .frame(width: 50, height: 50)
-            .overlay(
-                Circle()
-                    .stroke(Color(DesignColors.followImageBorder), lineWidth: 4)
-            )
-            .clipShape(Circle())
-            
-            VStack{
-                Text("Follow")
-                    .font(.custom(DesignFonts.InterSemiBold, size: 7))
-            }
-            .padding(.horizontal,6)
-            .padding(.vertical,2)
-            .background(Color(.white))
-            .overlay(
-                Capsule()
-                    .stroke(Color(DesignColors.followBorder), lineWidth: 1)
-            )
-            .clipShape(.capsule)
-            .offset(y:5)
-        }
-    }
+    CircleView()
 }
