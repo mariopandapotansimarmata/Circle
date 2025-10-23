@@ -16,6 +16,9 @@ struct OverviewView: View {
         CardData(text1: "Language", text2: "English", text3: "En"),
         CardData(text1: "Time zone", text2: "Europe", text3: "Local time")
     ]
+    init() {
+        UIScrollView.appearance().contentInsetAdjustmentBehavior = .never
+    }
     
     var body: some View {
         ScrollView{
@@ -86,7 +89,7 @@ struct OverviewView: View {
                 .padding(.horizontal, 20)
             }
         }
-        .contentMargins(.top, 16)
+        .contentMargins(.vertical, 16)
     }
 }
 
