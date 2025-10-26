@@ -16,6 +16,9 @@ struct OverviewView: View {
         CardData(text1: "Language", text2: "English", text3: "En"),
         CardData(text1: "Time zone", text2: "Europe", text3: "Local time")
     ]
+    
+    @State var isShowSheet: Bool = false
+    
     init() {
         UIScrollView.appearance().contentInsetAdjustmentBehavior = .never
     }
@@ -51,11 +54,13 @@ struct OverviewView: View {
                     Spacer()
                     
                     Button {
-                        
+                        isShowSheet.toggle()
                     }label: {
                         Image(systemName: "ellipsis")
-                    }.foregroundStyle(Color(DesignColors.ellipsisColor))
-                }.padding(.horizontal, 20)
+                    }
+                    .foregroundStyle(Color(DesignColors.ellipsisColor))
+                }
+                .padding(.horizontal, 20)
                 
                 VStack(alignment: .leading, spacing: 5) {
                     Text("30-Day Mindfulness Challenge")
@@ -89,6 +94,10 @@ struct OverviewView: View {
                 .padding(.horizontal, 20)
             }
         }
+        .sheet(isPresented: $isShowSheet) {
+            OptionSheetView(isShowSheet: $isShowSheet)
+        }
+        
         .contentMargins(.vertical, 16)
     }
 }
@@ -96,3 +105,4 @@ struct OverviewView: View {
 #Preview {
     CircleView()
 }
+

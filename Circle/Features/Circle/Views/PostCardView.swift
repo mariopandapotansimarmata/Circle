@@ -43,7 +43,7 @@ struct PostCardView: View {
             
             Text("Maecenas pulvinar ante ex, ut tristique odio varius sollicitudin. Praesent id ornare ante. Nam lobortis tempus luctus. Vivamus nunc turpis, efficitur eu tincidunt id, sodales sodales dui. Ut sollicitudin nibh id mi mollis, venenatis congue eros interdum. Maecenas ex erat, tincidunt malesuada nisl at, tincidunt sagittis ex. Duis egestas ac massa eu pharetr...more")
                 .font(.system(size: 11).weight(.light))
-                .lineHeight(.loose)
+                .lineSpacing(8)
             
             HStack {
                 PostChipView(image: DesignImages.loveIcon, text: "15")

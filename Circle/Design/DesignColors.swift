@@ -17,4 +17,6 @@ class DesignColors {
     static let greenChip = "greenChip"
     static let host = "host"
     static let pinned = "pinned"
+    static let sheetBackground1 = "sheetBackground1"
+    static let sheetBackground2 = "sheetBackground2"
 }
