@@ -24,8 +24,8 @@ struct OverviewView: View {
     }
     
     var body: some View {
-        ScrollView{
-            VStack (alignment: .leading , spacing: 16){
+        ScrollView {
+            VStack(alignment: .leading , spacing: 16) {
                 HStack (spacing: 10){
                     ProfileImageView()
                     

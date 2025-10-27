@@ -9,6 +9,8 @@ import SwiftUI
 
 struct PostCardView: View {
     @State var isShowMenu: Bool = false
+    var showComment: Bool = false
+    @State private var comment: String = ""
     
     var body: some View {
         ZStack(alignment: .trailing) {
@@ -53,6 +55,24 @@ struct PostCardView: View {
                 Text("Maecenas pulvinar ante ex, ut tristique odio varius sollicitudin. Praesent id ornare ante. Nam lobortis tempus luctus. Vivamus nunc turpis, efficitur eu tincidunt id, sodales sodales dui. Ut sollicitudin nibh id mi mollis, venenatis congue eros interdum. Maecenas ex erat, tincidunt malesuada nisl at, tincidunt sagittis ex. Duis egestas ac massa eu pharetr...more")
                     .font(.system(size: 11).weight(.light))
                     .lineSpacing(8)
+                
+                if showComment {
+                    TextField("", text: $comment,
+                        prompt: Text("Type your comment here...")
+                        .foregroundStyle(.gray)
+                        .font(.custom(DesignFonts.InterLight, size: 12))
+                    )
+                    .font(.system(size: 14))
+                    .padding(.horizontal, 15)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 45)
+                    .background(Color.white)
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 15)
+                            .stroke(Color(DesignColors.cardBorder), lineWidth: 1)
+                    }
+                    .cornerRadius(15)
+                }
                 
                 HStack {
                     PostChipView(image: DesignImages.loveIcon, text: "15")
@@ -128,3 +148,4 @@ struct PostCardView: View {
 #Preview {
     PostCardView()
 }
+

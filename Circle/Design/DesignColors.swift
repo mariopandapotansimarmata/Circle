@@ -19,4 +19,5 @@ class DesignColors {
     static let pinned = "pinned"
     static let sheetBackground1 = "sheetBackground1"
     static let sheetBackground2 = "sheetBackground2"
+    static let whiteColor = "whiteColor"
 }
