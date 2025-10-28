@@ -14,7 +14,7 @@ struct CircleView: View {
     var tabMenu = ["Overview", "Posts", "Resource",]
     
     var body: some View {
-        NavigationStack{
+        NavigationStack {
             ZStack {
                 LinearGradient(
                     colors: [Color(.background2), Color(.background1)],
@@ -74,6 +74,7 @@ struct CircleView: View {
             }
             .ignoresSafeArea(.container, edges: .bottom)
         }
+        .tint(.black)
     }
 }
 

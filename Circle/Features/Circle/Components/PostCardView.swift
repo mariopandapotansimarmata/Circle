@@ -7,13 +7,19 @@
 
 import SwiftUI
 
+enum PostCardMode {
+    case overview
+    case post
+    case comment
+
+}
 struct PostCardView: View {
-    @State var isShowMenu: Bool = false
-    var showComment: Bool = false
+    @State private var isShowMenu: Bool = false
     @State private var comment: String = ""
+    var mode: PostCardMode = .overview
     
     var body: some View {
-        ZStack(alignment: .trailing) {
+        ZStack(alignment: .topTrailing) {
             VStack(alignment: .leading, spacing: 15) {
                 HStack {
                     HStack{
@@ -56,7 +62,7 @@ struct PostCardView: View {
                     .font(.system(size: 11).weight(.light))
                     .lineSpacing(8)
                 
-                if showComment {
+                if mode == .post {
                     TextField("", text: $comment,
                         prompt: Text("Type your comment here...")
                         .foregroundStyle(.gray)
@@ -76,7 +82,36 @@ struct PostCardView: View {
                 
                 HStack {
                     PostChipView(image: DesignImages.loveIcon, text: "15")
-                    PostChipView(image: DesignImages.chatIcon, text: "4")
+                    PostChipView(image: mode == .comment ? DesignImages.chatIconFill : DesignImages.chatIcon, text: "4", canNavigate: mode == .post ? true : false )
+                }
+                
+                if mode == .comment {
+                    TextField("", text: $comment,
+                        prompt: Text("Type your comment here...")
+                        .foregroundStyle(.gray)
+                        .font(.custom(DesignFonts.InterLight, size: 12))
+                    )
+                    .font(.system(size: 14))
+                    .padding(.horizontal, 15)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 45)
+                    .background(Color.white)
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 15)
+                            .stroke(Color(DesignColors.cardBorder), lineWidth: 1)
+                    }
+                    .cornerRadius(15)
+                    .padding(.bottom, 20)
+                    
+                    Divider()
+                    
+                    VStack {
+                        VStack(alignment: .leading, spacing: 14) {
+                            ReplyCommentView()
+                            Divider()
+                            ReplyCommentView()
+                        }
+                    }
                 }
             }
             .padding(20)
@@ -138,7 +173,7 @@ struct PostCardView: View {
                     .cornerRadius(15)
                 }
                 .shadow(color: Color.black.opacity(0.15), radius: 8, x: 0, y: 4)
-                .offset(x: -20, y: -8)
+                .offset(x: -20, y: 45)
             }
 
         }
@@ -146,6 +181,91 @@ struct PostCardView: View {
 }
 
 #Preview {
-    PostCardView()
+//    PostCardView()
+    CommentView()
 }
 
+struct ReplyCommentView: View {
+    @State private var isShowMenu: Bool = false
+
+    var body: some View {
+        ZStack(alignment: .topTrailing) {
+            VStack(alignment: .leading, spacing: 14) {
+                HStack {
+                    HStack{
+                        ZStack (alignment: .bottom) {
+                            ZStack (alignment: .bottom) {
+                            }
+                            .frame(width: 28, height: 28)
+                            .background(Color(.systemGray5))
+                            .overlay(
+                                Circle()
+                                    .stroke(Color(DesignColors.tabIndicator), lineWidth: 2)
+                            )
+                            .clipShape(Circle())
+                        }
+                        
+                        VStack (alignment: .leading){
+                            HStack{
+                                Text("Sarah Pearson")
+                                    .font(.custom(DesignFonts.InterRegular, size: 12))
+                              
+                            }
+                            Text("2y")
+                                .font(.custom(DesignFonts.InterLight, size: 11))
+                                .foregroundStyle(Color(DesignColors.hostedBy))
+                        }
+                    }
+                    
+                    Spacer()
+                    
+                    Image(systemName: "ellipsis")
+                        .onTapGesture {
+                            withAnimation {
+                                isShowMenu.toggle()
+                            }
+                        }
+                    
+                }
+                
+                Text("Maecenas pulvinar ante ex, ut tristique odio varius solliciwtudin. Praesent id ornare ante. Nam lobortis tempus Praesent id ornare ante. Nam lobortis tempus luctus. ")
+                    .font(.system(size: 11).weight(.light))
+                    .lineSpacing(8)
+                
+                PostChipView(image: DesignImages.loveIcon, text: "15")
+            }
+            .padding(.leading, 30)
+            .onTapGesture {
+                isShowMenu = false
+            }
+            
+            if isShowMenu {
+                ZStack {
+                    VStack(spacing: 10) {
+                        Text("Report post")
+                            .frame(maxWidth: .infinity)
+                            .font(.custom(DesignFonts.InterRegular,size: 11))
+                            .padding(.vertical, 3)
+                            .padding(.horizontal, 7)
+                            .background(.black)
+                            .foregroundStyle(.white)
+                            .clipShape(RoundedRectangle(cornerRadius: 5))
+                        
+                        Divider()
+                        
+                    }
+                    .fixedSize()
+                    .padding(20)
+                    .background(Color.white)
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 15)
+                            .stroke(Color(DesignColors.cardBorder), lineWidth: 1)
+                    }
+                    .cornerRadius(15)
+                }
+                .shadow(color: Color.black.opacity(0.15), radius: 8, x: 0, y: 4)
+                .offset(x: 0, y: 25)
+            }
+        }
+    }
+}

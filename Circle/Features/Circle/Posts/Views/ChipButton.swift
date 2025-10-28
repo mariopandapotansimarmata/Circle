@@ -17,6 +17,7 @@ struct ChipButton: View {
         } label: {
             Text(title)
                 .foregroundStyle(.black.opacity(0.6))
+
                 .font(.custom(DesignFonts.InterLight, size: 11))
                 .padding(.vertical, 7)
                 .padding(.horizontal, 10)

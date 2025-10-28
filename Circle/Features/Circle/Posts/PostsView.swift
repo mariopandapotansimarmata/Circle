@@ -13,17 +13,17 @@ struct PostView: View {
     @FocusState private var commentFieldIsFocused: Bool
     
     var body: some View {
-        ScrollView (showsIndicators: true){
+        ScrollView (showsIndicators: true) {
             ZStack (alignment: .top) {
                 VStack(spacing: 20) {
                     PostFormView()
-                    PostCardView(showComment: true)
-                    PostCardView(showComment: true)
+                    PostCardView(mode: .post)
+                    PostCardView(mode: .post)
                 }
                 .padding(.horizontal,20)
                 .blur(radius: commentFieldIsFocused ? 12 : 0)
-                .allowsHitTesting(false)
-
+                
+                
                 if commentFieldIsFocused {
                     Color.black.opacity(0.001)
                         .ignoresSafeArea()
