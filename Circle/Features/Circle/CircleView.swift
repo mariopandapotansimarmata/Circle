@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CircleView: View {
     
-    @State private var currentIndex: Int = 1
+    @State private var currentIndex: Int = 2
     
     var tabMenu = ["Overview", "Posts", "Resource",]
     
@@ -45,9 +45,8 @@ struct CircleView: View {
                             .tag(0)
                         PostView()
                             .tag(1)
-                        Text("Posts")
+                        ResourceView()
                             .tag(2)
-
                     }
                     .frame(maxWidth: .infinity,alignment: .leading)
                     .tabViewStyle(.page)

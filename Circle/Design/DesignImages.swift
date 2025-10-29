@@ -13,4 +13,5 @@ class DesignImages {
     static let loveIcon = "loveIcon"
     static let infoIcon = "infoIcon"
     static let chatIconFill = "chatIconFill"
+    static let profileHost = "profileHost"
 }

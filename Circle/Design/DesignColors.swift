@@ -20,4 +20,7 @@ class DesignColors {
     static let sheetBackground1 = "sheetBackground1"
     static let sheetBackground2 = "sheetBackground2"
     static let whiteColor = "whiteColor"
+    static let seeAll = "seeAll"
+    static let purple300 = "purple300"
+    static let fileBox = "fileBox"
 }
