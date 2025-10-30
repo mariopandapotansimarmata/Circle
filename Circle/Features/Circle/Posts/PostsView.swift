@@ -11,14 +11,17 @@ struct PostView: View {
     //    @State var isFocus: Bool = false
     @State private var comment: String = ""
     @FocusState private var commentFieldIsFocused: Bool
+    @Binding var listPosts: [Post]
     
     var body: some View {
         ScrollView (showsIndicators: true) {
             ZStack (alignment: .top) {
                 VStack(spacing: 20) {
                     PostFormView()
-                    PostCardView(mode: .post)
-                    PostCardView(mode: .post)
+                    
+                    ForEach(listPosts.indices, id: \.self) { index in
+                        PostCardView(post: $listPosts[index], mode:  .post)
+                    }
                 }
                 .padding(.horizontal,20)
                 .blur(radius: commentFieldIsFocused ? 12 : 0)

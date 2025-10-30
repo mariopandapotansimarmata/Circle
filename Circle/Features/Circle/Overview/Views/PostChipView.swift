@@ -10,10 +10,11 @@ struct PostChipView: View {
     var image: String
     var text: String
     var canNavigate: Bool = false
+    @Binding var post: Post
 
     var body: some View {
         if canNavigate {
-            NavigationLink(destination: CommentView()) {
+            NavigationLink(destination: CommentView(post: $post)) {
                 chipContent
             }
             .buttonStyle(PlainButtonStyle())

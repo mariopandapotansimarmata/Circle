@@ -11,11 +11,12 @@ struct CommentView: View {
     @State var isShowMenu: Bool = false
     var showComment: Bool = false
     @State private var comment: String = ""
+    @Binding var post: Post
     
     var body: some View {
         ScrollView {
             VStack {
-                PostCardView(mode: .comment)
+                PostCardView(post: $post, mode: .comment)
             }
         }
         .contentMargins(.vertical,16)
@@ -42,5 +43,5 @@ struct CommentView: View {
 }
 
 #Preview {
-    CommentView()
+//    CommentView()
 }

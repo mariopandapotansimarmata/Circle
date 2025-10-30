@@ -18,9 +18,11 @@ struct OverviewView: View {
     ]
     
     @State var isShowSheet: Bool = false
+    @Binding var host: Host
     
-    init() {
+    init(_ host: Binding<Host>) {
         UIScrollView.appearance().contentInsetAdjustmentBehavior = .never
+        _host = host
     }
     
     var body: some View {
@@ -34,7 +36,7 @@ struct OverviewView: View {
                             .font(.custom(DesignFonts.InterLight, size: 12))
                             .foregroundStyle(Color(DesignColors.hostedBy))
                         HStack (spacing: 10){
-                            Text("Jane Doe")
+                            Text(host.name)
                                 .font(.custom(DesignFonts.InterMedium, size: 14))
                             VStack {
                                 Text("T2")
@@ -63,10 +65,10 @@ struct OverviewView: View {
                 .padding(.horizontal, 20)
                 
                 VStack(alignment: .leading, spacing: 5) {
-                    Text("30-Day Mindfulness Challenge")
+                    Text(host.title)
                         .font(.custom(DesignFonts.InterMedium, size: 18))
                     
-                    ExpandableTextInline(fullText: "This 30-minute mindfulness practice is designed to help you slow down, reset, and reconnect with yourself. Together We Can do amazing things!")
+                    ExpandableTextInline(fullText: host.description)
                 }
                 .padding(.horizontal,20)
                 
@@ -87,7 +89,7 @@ struct OverviewView: View {
                 .padding(.horizontal, 20)
                 
                 VStack(alignment: .leading, spacing: 15){
-                    PostCardView()
+                    PostCardView(post: $host.posts.first!)
                     RulesCardView()
                     InfoCardView()
                 }

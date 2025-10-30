@@ -11,12 +11,15 @@ enum PostCardMode {
     case overview
     case post
     case comment
-
+    
 }
 struct PostCardView: View {
     @State private var isShowMenu: Bool = false
     @State private var comment: String = ""
+    @Binding var post: Post
     var mode: PostCardMode = .overview
+    
+    
     
     var body: some View {
         ZStack(alignment: .topTrailing) {
@@ -37,12 +40,12 @@ struct PostCardView: View {
                         
                         VStack (alignment: .leading){
                             HStack{
-                                Text("Sarah Pearson")
+                                Text(post.name)
                                     .font(.custom(DesignFonts.InterRegular, size: 12))
                                 TagBoxView(text: "Host", color: Color(DesignColors.host))
                                 TagBoxView(text: "Pinned", color: Color(DesignColors.pinned))
                             }
-                            Text("3d")
+                            Text(post.createdAt)
                                 .font(.custom(DesignFonts.InterLight, size: 11))
                                 .foregroundStyle(Color(DesignColors.hostedBy))
                         }
@@ -58,13 +61,17 @@ struct PostCardView: View {
                         }
                 }
                 
-                Text("Maecenas pulvinar ante ex, ut tristique odio varius sollicitudin. Praesent id ornare ante. Nam lobortis tempus luctus. Vivamus nunc turpis, efficitur eu tincidunt id, sodales sodales dui. Ut sollicitudin nibh id mi mollis, venenatis congue eros interdum. Maecenas ex erat, tincidunt malesuada nisl at, tincidunt sagittis ex. Duis egestas ac massa eu pharetr...more")
+                Text(post.note)
                     .font(.system(size: 11).weight(.light))
                     .lineSpacing(8)
                 
+                if !post.photos.isEmpty {
+                    FluidImages(photos: $post.photos)
+                }
+                
                 if mode == .post {
                     TextField("", text: $comment,
-                        prompt: Text("Type your comment here...")
+                              prompt: Text("Type your comment here...")
                         .foregroundStyle(.gray)
                         .font(.custom(DesignFonts.InterLight, size: 12))
                     )
@@ -81,13 +88,13 @@ struct PostCardView: View {
                 }
                 
                 HStack {
-                    PostChipView(image: DesignImages.loveIcon, text: "15")
-                    PostChipView(image: mode == .comment ? DesignImages.chatIconFill : DesignImages.chatIcon, text: "4", canNavigate: mode == .post ? true : false )
+                    PostChipView(image: DesignImages.loveIcon, text: "15",post: $post)
+                    PostChipView(image: mode == .comment ? DesignImages.chatIconFill : DesignImages.chatIcon, text: "4", canNavigate: mode == .post ? true : false, post: $post )
                 }
                 
                 if mode == .comment {
                     TextField("", text: $comment,
-                        prompt: Text("Type your comment here...")
+                              prompt: Text("Type your comment here...")
                         .foregroundStyle(.gray)
                         .font(.custom(DesignFonts.InterLight, size: 12))
                     )
@@ -107,13 +114,11 @@ struct PostCardView: View {
                     
                     VStack {
                         VStack(alignment: .leading, spacing: 14) {
-                            ReplyCommentView()
-                            Divider()
-                            ReplyCommentView()
-                            Divider()
-                            ReplyCommentView()
-                            Divider()
-                            ReplyCommentView()
+                            ForEach($post.replies) { reply in
+                                ReplyCommentView(reply: reply)
+                                Divider()
+                            }
+                            
                             Divider()
                             HStack {
                                 HStack {
@@ -195,97 +200,12 @@ struct PostCardView: View {
                 .shadow(color: Color.black.opacity(0.15), radius: 8, x: 0, y: 4)
                 .offset(x: -20, y: 45)
             }
-
+            
         }
     }
 }
 
 #Preview {
-//    PostCardView()
-    CommentView()
-}
-
-struct ReplyCommentView: View {
-    @State private var isShowMenu: Bool = false
-
-    var body: some View {
-        ZStack(alignment: .topTrailing) {
-            VStack(alignment: .leading, spacing: 14) {
-                HStack {
-                    HStack{
-                        ZStack (alignment: .bottom) {
-                            ZStack (alignment: .bottom) {
-                            }
-                            .frame(width: 28, height: 28)
-                            .background(Color(.systemGray5))
-                            .overlay(
-                                Circle()
-                                    .stroke(Color(DesignColors.tabIndicator), lineWidth: 2)
-                            )
-                            .clipShape(Circle())
-                        }
-                        
-                        VStack (alignment: .leading){
-                            HStack{
-                                Text("Sarah Pearson")
-                                    .font(.custom(DesignFonts.InterRegular, size: 12))
-                              
-                            }
-                            Text("2y")
-                                .font(.custom(DesignFonts.InterLight, size: 11))
-                                .foregroundStyle(Color(DesignColors.hostedBy))
-                        }
-                    }
-                    
-                    Spacer()
-                    
-                    Image(systemName: "ellipsis")
-                        .onTapGesture {
-                            withAnimation {
-                                isShowMenu.toggle()
-                            }
-                        }
-                    
-                }
-                
-                Text("Maecenas pulvinar ante ex, ut tristique odio varius solliciwtudin. Praesent id ornare ante. Nam lobortis tempus Praesent id ornare ante. Nam lobortis tempus luctus. ")
-                    .font(.system(size: 11).weight(.light))
-                    .lineSpacing(8)
-                
-                PostChipView(image: DesignImages.loveIcon, text: "15")
-            }
-            .padding(.leading, 30)
-            .onTapGesture {
-                isShowMenu = false
-            }
-            
-            if isShowMenu {
-                ZStack {
-                    VStack(spacing: 10) {
-                        Text("Report post")
-                            .frame(maxWidth: .infinity)
-                            .font(.custom(DesignFonts.InterRegular,size: 11))
-                            .padding(.vertical, 3)
-                            .padding(.horizontal, 7)
-                            .background(.black)
-                            .foregroundStyle(.white)
-                            .clipShape(RoundedRectangle(cornerRadius: 5))
-                        
-                        Divider()
-                        
-                    }
-                    .fixedSize()
-                    .padding(20)
-                    .background(Color.white)
-                    .overlay {
-                        RoundedRectangle(cornerRadius: 15)
-                            .stroke(Color(DesignColors.cardBorder), lineWidth: 1)
-                    }
-                    .cornerRadius(15)
-                }
-                .shadow(color: Color.black.opacity(0.15), radius: 8, x: 0, y: 4)
-                .offset(x: 0, y: 25)
-            }
-        }
-    }
+    //    PostCardView()
+    CircleView()
 }
