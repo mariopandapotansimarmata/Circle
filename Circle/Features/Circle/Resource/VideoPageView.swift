@@ -9,9 +9,9 @@ import SwiftUI
 
 struct VideoPageView: View {
     private let columns: [GridItem] = [
-           GridItem(.flexible(), spacing: 12),
-           GridItem(.flexible(), spacing: 12),
-           GridItem(.flexible(), spacing: 12)
+           GridItem(.flexible()),
+           GridItem(.flexible()),
+           GridItem(.flexible())
        ]
     
     init() {
@@ -27,14 +27,17 @@ struct VideoPageView: View {
                                .resizable()
                                .scaledToFill()
                                .frame(height: 163)
+                               .frame(width: 103)
                                .frame(maxWidth: .infinity)
                                .clipped()
                        }
                    }
-                   .padding(.horizontal,)
                }
+               .padding(.horizontal, 20)
            }
+
            .frame(maxHeight: .infinity)
+           .contentMargins(.vertical,16)
     }
 }
 

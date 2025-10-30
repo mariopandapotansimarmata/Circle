@@ -110,6 +110,26 @@ struct PostCardView: View {
                             ReplyCommentView()
                             Divider()
                             ReplyCommentView()
+                            Divider()
+                            ReplyCommentView()
+                            Divider()
+                            ReplyCommentView()
+                            Divider()
+                            HStack {
+                                HStack {
+                                    Text("Load more")
+                                        .font(.caption)
+                                    Image(systemName:"chevron.down")
+                                        .font(.caption)
+                                }
+                                Spacer()
+                                HStack {
+                                    Text("Hide replies ")
+                                        .font(.caption)
+                                    Image(systemName:"chevron.up")
+                                        .font(.caption)
+                                }
+                            }
                         }
                     }
                 }

@@ -39,7 +39,7 @@ struct MediaView: View {
             .padding(.horizontal,40)
             
             TabView(selection: $currentIndex) {
-                Text("Data 1")
+                VideoPageView()
                     .tag(0)
                 VideoPageView()
                     .tag(1)

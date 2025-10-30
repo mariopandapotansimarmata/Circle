@@ -9,15 +9,18 @@ import SwiftUI
 
 struct ResourceView: View {
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 16) {
-                ResourceCardView(title: "Host Media")
-                ResourceCardView(title: "Host Files",typeFile: .file)
-                ResourceCardView(title: "Host Files",background1: Color(DesignColors.purple300), background2: Color(DesignColors.purple300))
-                ResourceCardView(title: "Host Files",background1: Color(DesignColors.purple300),typeFile: .file)
+        VStack{
+            ScrollView {
+                VStack(alignment: .leading, spacing: 16) {
+                    ResourceCardView(title: "Host Media")
+                    ResourceCardView(title: "Host Files",typeFile: .file)
+                    ResourceCardView(title: "Host Files",background1: Color(DesignColors.purple300), background2: Color(DesignColors.purple300))
+                    ResourceCardView(title: "Host Files",background1: Color(DesignColors.purple300),typeFile: .file)
+                }
+                .padding(.horizontal, 20)
             }
         }
-        .contentMargins(20)
+        .contentMargins(.vertical, 20)
     }
 }
 
