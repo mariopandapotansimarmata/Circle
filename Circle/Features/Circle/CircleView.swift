@@ -35,7 +35,8 @@ struct CircleView: View {
                  isLockedComment: false,
                 note: "Maecenas pulvinar ante ex, ut tristique odio varius sollicitudin. Praesent id ornare ante. Nam lobortis tempus luctus. Vivamus nunc turpis, efficitur eu tincidunt id, sodales sodales dui. Ut sollicitudin nibh id mi mollis, venenatis congue eros interdum. Maecenas ex erat, tincidunt malesuada "
                 ),
-            Post(name: "Mario Pandapotan",
+            
+            Post(name: "Mario",
                  createdAt: "1d",
                  photos: [],
                  replies: [Replies(name: "Stanford Harris",
@@ -45,6 +46,7 @@ struct CircleView: View {
                  isEdited: false,
                  isLockedComment: false,
                  note: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."),
+            
             Post(name: "Xabi Alonso",
                  createdAt: "3d",
                  photos: [],
@@ -53,7 +55,7 @@ struct CircleView: View {
                                    likes: 2)],
                  likes: 20,
                  isEdited: false,
-                 isLockedComment: false,
+                 isLockedComment: true,
                  note: "Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Proin facilisis, nisl eget vehicula rutrum, ipsum ipsum consectetur metus, non rhoncus est augue vitae metus. Suspendisse potenti. In hac habitasse platea dictumst. Sed ac purus ac dolor malesuada ultricies."),
             
         ]

@@ -54,7 +54,7 @@ struct ReplyCommentView: View {
                     .font(.system(size: 11).weight(.light))
                     .lineSpacing(8)
                 
-                PostChipComment(image: DesignImages.loveIcon, text: "15",isLocked: .constant(false),post: .constant(Post(name: "", createdAt: "", photos: [], replies: [], likes: 0, isEdited: false, isLockedComment: false, note: "")), )
+                PostChipComment(image: DesignImages.loveIcon, text: "15",isLocked: .constant(false),post: .constant(Post(name: "", createdAt: "", photos: [], replies: [], likes: 0, isEdited: false, isLockedComment: false, note: "")), listPosts: .constant([]) )
             }
             .padding(.leading, 30)
             .onTapGesture {

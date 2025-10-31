@@ -8,66 +8,36 @@
 import SwiftUI
 
 struct PostView: View {
-    //    @State var isFocus: Bool = false
     @State private var comment: String = ""
-    @FocusState private var commentFieldIsFocused: Bool
+    @FocusState private var focusField: Bool
     @Binding var listPosts: [Post]
-    
+    @State var photos: [String] = []
+
     var body: some View {
         ScrollView (showsIndicators: true) {
             ZStack (alignment: .top) {
                 VStack(spacing: 20) {
-                    PostFormView()
-                    
+                    PostFormView(photos: $photos,comment: $comment,listPosts: $listPosts, focusField: $focusField)
+
                     ForEach(listPosts.indices, id: \.self) { index in
-                        PostCardView(post: $listPosts[index], mode:  .post)
+                        PostCardView(post: $listPosts[index], listPost: $listPosts,mode:  .post)
                     }
                 }
                 .padding(.horizontal,20)
-                .blur(radius: commentFieldIsFocused ? 12 : 0)
+                .blur(radius: focusField ? 12 : 0)
                 
-                
-                if commentFieldIsFocused {
+                if focusField {
                     Color.black.opacity(0.001)
                         .ignoresSafeArea()
                         .onTapGesture {
                             withAnimation {
-                                commentFieldIsFocused = false
+                                focusField = false
                             }
                         }
                 }
                 
-                VStack(spacing: 36) {
-                    TextField(
-                        "",
-                        text: $comment,
-                        prompt: Text("Add Something...")
-                    )
-                    .focused($commentFieldIsFocused)
-                    .foregroundStyle(.gray)
-                    .font(.custom(DesignFonts.InterLight, size: 11))
-                    
-                    HStack {
-                        ChipButton(title: "Camera")
-                        ChipButton(title: "Photos")
-                        ChipButton(title: "Files")
-                        Spacer()
-                        ChipButton(title: "Post",color: DesignColors.host)
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                }
-                .font(.system(size: 14))
-                .padding(.horizontal, 20)
-                .padding(.vertical,20)
-                .frame(maxWidth: .infinity)
-                .background(Color.white)
-                .overlay {
-                    RoundedRectangle(cornerRadius: 15)
-                        .stroke(Color(DesignColors.cardBorder), lineWidth: 1)
-                }
-                .cornerRadius(15)
-                .padding(.horizontal, 20)
-                
+                PostFormView(photos: $photos,comment: $comment,listPosts: $listPosts, focusField: $focusField)
+                    .padding(.horizontal,20)
             }
         }
         .contentMargins(.vertical,20)

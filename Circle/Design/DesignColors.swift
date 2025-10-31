@@ -24,4 +24,6 @@ class DesignColors {
     static let purple300 = "purple300"
     static let fileBox = "fileBox"
     static let lock = "lock"
+    static let photoChipBack = "photoChipBack"
+    static let photoChipBorder = "photoChipBorder"
 }

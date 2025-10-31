@@ -12,11 +12,12 @@ struct CommentView: View {
     var showComment: Bool = false
     @State private var comment: String = ""
     @Binding var post: Post
+    @Binding var listPosts: [Post]
     
     var body: some View {
         ScrollView {
             VStack {
-                PostCardView(post: $post, mode: .comment)
+                PostCardView(post: $post, listPost: $listPosts, mode: .comment)
             }
         }
         .contentMargins(.vertical,16)

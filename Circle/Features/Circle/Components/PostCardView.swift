@@ -11,15 +11,15 @@ enum PostCardMode {
     case overview
     case post
     case comment
-    
 }
+
 struct PostCardView: View {
+    @Environment(\.dismiss) var dismiss
     @State private var isShowMenu: Bool = false
     @State private var comment: String = ""
     @Binding var post: Post
+    @Binding var listPost: [Post]
     var mode: PostCardMode = .overview
-    
-    
     
     var body: some View {
         ZStack(alignment: .topTrailing) {
@@ -88,8 +88,8 @@ struct PostCardView: View {
                 }
                 
                 HStack {
-                    PostChipLike(isLike: true, number: .constant(2))
-                    PostChipComment(image: mode == .comment ? DesignImages.chatIconFill : DesignImages.chatIcon, text: "4", canNavigate: mode == .post ? true : false, isLocked: $post.isLockedComment,post: $post)
+                    PostChipLike(isLike: true, number: $post.likes)
+                    PostChipComment(image: mode == .comment ? DesignImages.chatIconFill : DesignImages.chatIcon, text: String($post.replies.count), canNavigate: mode == .post ? true : false, isLocked: $post.isLockedComment,post: $post, listPosts: $listPost)
                 }
                 
                 if mode == .comment {
@@ -154,19 +154,21 @@ struct PostCardView: View {
             if isShowMenu {
                 ZStack {
                     VStack(spacing: 10) {
-                        Text("Edit post")
-                            .frame(maxWidth: .infinity)
-                            .font(.custom(DesignFonts.InterRegular,size: 11))
-                            .padding(.vertical, 3)
-                            .padding(.horizontal, 7)
-                            .background(Color(DesignColors.host))
-                            .overlay {
-                                RoundedRectangle(cornerRadius: 5)
-                                    .stroke(Color(.black), lineWidth: 1)
-                            }
-                            .clipShape(RoundedRectangle(cornerRadius: 5))
-                        
-                        Divider()
+                        if post.name == "Mario"{
+                            Text("Edit post")
+                                .frame(maxWidth: .infinity)
+                                .font(.custom(DesignFonts.InterRegular,size: 11))
+                                .padding(.vertical, 3)
+                                .padding(.horizontal, 7)
+                                .background(Color(DesignColors.host))
+                                .overlay {
+                                    RoundedRectangle(cornerRadius: 5)
+                                        .stroke(Color(.black), lineWidth: 1)
+                                }
+                                .clipShape(RoundedRectangle(cornerRadius: 5))
+                            
+                            Divider()
+                        }
                         
                         Text("Report post")
                             .frame(maxWidth: .infinity)
@@ -179,14 +181,22 @@ struct PostCardView: View {
                         
                         Divider()
                         
-                        Text("Delete post")
-                            .frame(maxWidth: .infinity)
-                            .font(.custom(DesignFonts.InterRegular,size: 11))
-                            .padding(.vertical, 3)
-                            .padding(.horizontal, 7)
-                            .background(Color(.systemRed))
-                            .foregroundStyle(.white)
-                            .clipShape(RoundedRectangle(cornerRadius: 5))
+                        if post.name == "Mario" {
+                            Button {
+                                listPost.removeAll(where: { $0.id == post.id })
+                                    dismiss()
+                            } label:{
+                                Text("Delete post")
+                                    .frame(maxWidth: .infinity)
+                                    .font(.custom(DesignFonts.InterRegular,size: 11))
+                                    .padding(.vertical, 3)
+                                    .padding(.horizontal, 7)
+                                    .background(Color(.systemRed))
+                                    .foregroundStyle(.white)
+                                    .clipShape(RoundedRectangle(cornerRadius: 5))
+                                
+                        }
+                        }
                     }
                     .fixedSize()
                     .padding(20)

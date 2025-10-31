@@ -89,7 +89,7 @@ struct OverviewView: View {
                 .padding(.horizontal, 20)
                 
                 VStack(alignment: .leading, spacing: 15){
-                    PostCardView(post: $host.posts.first!)
+                    PostCardView(post: $host.posts.first!, listPost: $host.posts)
                     RulesCardView()
                     InfoCardView()
                 }

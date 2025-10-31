@@ -13,10 +13,11 @@ struct PostChipComment: View {
     var canNavigate: Bool = false
     @Binding var isLocked: Bool
     @Binding var post: Post
+    @Binding var listPosts: [Post]
     
     var body: some View {
         if canNavigate && !isLocked {
-            NavigationLink(destination: CommentView(post: $post)) {
+            NavigationLink(destination: CommentView(post: $post, listPosts: $listPosts)) {
                 chipContent
             }
             .buttonStyle(PlainButtonStyle())
@@ -48,12 +49,12 @@ struct PostChipComment: View {
 }
 
 struct PostChipLike: View {
-    @State var isLike: Bool = false
+    @State var isLike: Bool = true
     @Binding var number: Int
     var body: some View {
         HStack {
             Image(isLike ? DesignImages.loveIcon : DesignImages.loveIconFill)
-            Text("\(isLike ? number + 1 : number)")
+            Text("\(isLike ? number  : number + 1)")
                 .font(.custom(DesignFonts.InterRegular, size: 12))
         }
         .padding(.horizontal, 7)

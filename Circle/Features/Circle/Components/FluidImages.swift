@@ -9,6 +9,7 @@ import SwiftUI
 
 struct FluidImages: View {
     @Binding var photos: [String]
+    var deletable: Bool = false
     
     private var mediaMaxWidthLeft: CGFloat {
         switch photos.count {
@@ -49,71 +50,118 @@ struct FluidImages: View {
         HStack(spacing: 15) {
             if photos.count < 5 {
                 VStack(spacing: 15) {
-                    Image(photos[0])
-                        .resizable()
-                        .overlay {
-                            RoundedRectangle(cornerRadius: 15)
-                                .stroke(Color(DesignColors.cardBorder),
-                                        lineWidth: 1)
-                        }
-                        .clipShape(RoundedRectangle(cornerRadius: 15))
-                    
-                    if photos.count > 3 {
-                        Image(photos[3])
-                            .resizable()
-                            .overlay {
-                                RoundedRectangle(cornerRadius: 15)
-                                    .stroke(Color(DesignColors.cardBorder),
-                                            lineWidth: 1)
+                    if photos.count > 0 {
+                        ZStack (alignment: .topTrailing) {
+                            Image(photos[0])
+                                .resizable()
+                                .overlay {
+                                    RoundedRectangle(cornerRadius: 15)
+                                        .stroke(Color(DesignColors.cardBorder),
+                                                lineWidth: 1)
+                                }
+                                .clipShape(RoundedRectangle(cornerRadius: 15))
+                            if deletable {
+                                Image(DesignImages.closeIcon)
+                                    .padding(8)
+                                    .onTapGesture {
+                                        photos.remove(at: 0)
+                                    }
                             }
-                            .clipShape(RoundedRectangle(cornerRadius: 15))
+                           
+                        }
+                    }
+                    if photos.count > 3 {
+                        ZStack (alignment: .topTrailing) {
+                            Image(photos[3])
+                                .resizable()
+                                .overlay {
+                                    RoundedRectangle(cornerRadius: 15)
+                                        .stroke(Color(DesignColors.cardBorder),
+                                                lineWidth: 1)
+                                }
+                                .clipShape(RoundedRectangle(cornerRadius: 15))
+                            if deletable {
+                                Image(DesignImages.closeIcon)
+                                    .padding(8)
+                                    .onTapGesture {
+                                        photos.remove(at: 3)
+                                    }
+                            }
+                        }
                     }
                 }
                 .frame(maxHeight: mediaMaxHeightLeft)
-                .frame(maxWidth : mediaMaxWidthLeft)
+                .frame(maxWidth: mediaMaxWidthLeft)
                 
                 VStack(spacing: 15) {
                     if photos.count > 1 {
-                        Image(photos[1])
-                            .resizable()
-                            .overlay {
-                                RoundedRectangle(cornerRadius: 15)
-                                    .stroke(Color(DesignColors.cardBorder),
-                                            lineWidth: 1)
+                        ZStack (alignment: .topTrailing) {
+                            Image(photos[1])
+                                .resizable()
+                                .overlay {
+                                    RoundedRectangle(cornerRadius: 15)
+                                        .stroke(Color(DesignColors.cardBorder),
+                                                lineWidth: 1)
+                                }
+                                .clipShape(RoundedRectangle(cornerRadius: 15))
+                            if deletable {
+                                Image(DesignImages.closeIcon)
+                                    .padding(8)
+                                    .onTapGesture {
+                                        photos.remove(at: 1)
+                                    }
                             }
-                            .clipShape(RoundedRectangle(cornerRadius: 15))
-                        
+                        }
                     }
                     
                     if photos.count > 2 {
-                        Image(photos[2])
-                            .resizable()
-                            .overlay {
-                                RoundedRectangle(cornerRadius: 15)
-                                    .stroke(Color(DesignColors.cardBorder),
-                                            lineWidth: 1)
+                        ZStack (alignment: .topTrailing) {
+                            Image(photos[2])
+                                .resizable()
+                                .overlay {
+                                    RoundedRectangle(cornerRadius: 15)
+                                        .stroke(Color(DesignColors.cardBorder),
+                                                lineWidth: 1)
+                                }
+                                .clipShape(RoundedRectangle(cornerRadius: 15))
+                            if deletable {
+                                Image(DesignImages.closeIcon)
+                                    .padding(8)
+                                    .onTapGesture {
+                                        photos.remove(at: 2)
+                                    }
                             }
-                            .clipShape(RoundedRectangle(cornerRadius: 15))
+                        }
                     }
                 }
                 .frame(maxHeight: mediaMaxHeightRight)
-                .frame(maxWidth : mediaMaxWidthRight)
+                .frame(maxWidth: mediaMaxWidthRight)
             } else {
                 HStack {
-                    ForEach(photos, id: \.self) { photo in
-                        Image(photo)
-                            .resizable()
-                            .frame(maxHeight: 55)
-                            .frame(maxWidth : 48)
-                            .overlay {
-                                RoundedRectangle(cornerRadius: 15)
-                                    .stroke(Color(DesignColors.cardBorder),
-                                            lineWidth: 1)
+                    ForEach(photos.indices, id: \.self) { index in
+                        let photo = photos[index]
+                        ZStack(alignment: .topTrailing) {
+                            Image(photo)
+                                .resizable()
+                                .frame(maxHeight: 55)
+                                .frame(maxWidth: 48)
+                                .overlay {
+                                    RoundedRectangle(cornerRadius: 15)
+                                        .stroke(Color(DesignColors.cardBorder), lineWidth: 1)
+                                }
+                                .clipShape(RoundedRectangle(cornerRadius: 15))
+
+                            if deletable {
+                                Image(DesignImages.closeIcon)
+                                    .padding(8)
+                                    .onTapGesture {
+                                        photos.remove(at: index)
+                                    }
                             }
-                            .clipShape(RoundedRectangle(cornerRadius: 15))
+                        }
                     }
                 }
-                .padding(.vertical,)
+//                .padding(.vertical)
             }
         }
     }

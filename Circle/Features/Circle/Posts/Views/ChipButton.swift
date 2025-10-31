@@ -11,10 +11,11 @@ struct ChipButton: View {
      var title: String
      var color: String?
     
+    
     var body: some View {
-        Button {
-            // add logic
-        } label: {
+//        Button {
+//            // add logic
+//        } label: {
             Text(title)
                 .foregroundStyle(.black.opacity(0.6))
 
@@ -28,7 +29,7 @@ struct ChipButton: View {
                 }
                 .cornerRadius(15)
         }
-    }
+//    }
 }
 
 #Preview {
