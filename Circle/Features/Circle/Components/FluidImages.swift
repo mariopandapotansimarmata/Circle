@@ -118,3 +118,7 @@ struct FluidImages: View {
         }
     }
 }
+
+#Preview {
+    CircleView()
+}

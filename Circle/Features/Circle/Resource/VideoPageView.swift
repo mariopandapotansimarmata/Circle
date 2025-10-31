@@ -32,10 +32,9 @@ struct VideoPageView: View {
                                .clipped()
                        }
                    }
+                   .padding(.horizontal, 20)
                }
-               .padding(.horizontal, 20)
            }
-
            .frame(maxHeight: .infinity)
            .contentMargins(.vertical,16)
     }

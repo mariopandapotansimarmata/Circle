@@ -88,8 +88,8 @@ struct PostCardView: View {
                 }
                 
                 HStack {
-                    PostChipView(image: DesignImages.loveIcon, text: "15",post: $post)
-                    PostChipView(image: mode == .comment ? DesignImages.chatIconFill : DesignImages.chatIcon, text: "4", canNavigate: mode == .post ? true : false, post: $post )
+                    PostChipLike(isLike: true, number: .constant(2))
+                    PostChipComment(image: mode == .comment ? DesignImages.chatIconFill : DesignImages.chatIcon, text: "4", canNavigate: mode == .post ? true : false, isLocked: $post.isLockedComment,post: $post)
                 }
                 
                 if mode == .comment {

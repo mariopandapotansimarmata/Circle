@@ -19,7 +19,7 @@ struct CircleView: View {
         posts: [
             Post(name: "Sarah Pearson",
                  createdAt: "3d",
-                 photos: ["image2", "image1", "image3","image8", "image5"],
+                 photos: ["image2", "image1", "image9","image5", "image5"],
                  replies: [Replies(name: "LeBron James",
                                    createdAt: "2d",
                                    likes: 14),

@@ -23,4 +23,5 @@ class DesignColors {
     static let seeAll = "seeAll"
     static let purple300 = "purple300"
     static let fileBox = "fileBox"
+    static let lock = "lock"
 }
