@@ -17,4 +17,5 @@ class DesignImages {
     static let loveIconFill = "loveIconFill"
     static let lock = "lock"
     static let closeIcon = "closeIcon"
+    static let x = "x"
 }

@@ -7,10 +7,15 @@
 
 import Foundation
 
-struct Replies: Identifiable {
+class Replies: Identifiable {
     var id: UUID = UUID()
-    
     var name: String
     var createdAt: String
     var likes: Int
+    
+    init( name: String, createdAt: String, likes: Int) {
+        self.name = name
+        self.createdAt = createdAt
+        self.likes = likes
+    }
 }

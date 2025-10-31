@@ -17,7 +17,7 @@ struct CommentView: View {
     var body: some View {
         ScrollView {
             VStack {
-                PostCardView(post: $post, listPost: $listPosts, mode: .comment)
+                PostCardView(post: $post, listPost: $listPosts,focusPost: .constant(0), mode: .constant(.comment))
             }
         }
         .contentMargins(.vertical,16)

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Post: Identifiable {
+class Post: Identifiable {
     var id: UUID = UUID()
     var name: String
     var createdAt: String
@@ -17,4 +17,15 @@ struct Post: Identifiable {
     var isEdited: Bool
     var isLockedComment: Bool
     var note: String
+    
+    init(name: String, createdAt: String, photos: [String], replies: [Replies], likes: Int, isEdited: Bool, isLockedComment: Bool, note: String) {
+        self.name = name
+        self.createdAt = createdAt
+        self.photos = photos
+        self.replies = replies
+        self.likes = likes
+        self.isEdited = isEdited
+        self.isLockedComment = isLockedComment
+        self.note = note
+    }
 }
