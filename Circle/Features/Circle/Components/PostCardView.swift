@@ -40,6 +40,7 @@ struct PostCardView: View {
                             .padding(.bottom, 8)
                     }
                 }
+                
                 VStack(alignment: .leading, spacing: 15) {
                     HStack {
                         HStack{
@@ -94,7 +95,7 @@ struct PostCardView: View {
                     }
                     
                     
-                    if !post.photos.isEmpty {
+                    if !post.photos.isEmpty &&  mode != .editing {
                         FluidImages(photos: $post.photos)
                     }
                     
@@ -105,9 +106,6 @@ struct PostCardView: View {
                                     .font(.caption2).fontWeight(.light)
                                     .foregroundStyle(Color(DesignColors.tabIndicator))
                             }
-                               
-                               
-                            
                             
                             VStack (alignment: .trailing){
                                 ZStack(alignment: .leading) {

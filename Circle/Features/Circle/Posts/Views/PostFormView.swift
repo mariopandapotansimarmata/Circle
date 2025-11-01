@@ -49,7 +49,6 @@ struct PostFormView: View {
                         if photos.count < 5 {
                             photos.append(image)
                         }
-                        print("tap")
                     }
                 
                 ChipButton(title: "Files")

@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@Observable
 class Post: Identifiable {
     var id: UUID = UUID()
     var name: String

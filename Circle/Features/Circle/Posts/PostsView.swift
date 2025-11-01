@@ -19,10 +19,10 @@ struct PostView: View {
         ScrollView (showsIndicators: true) {
             ZStack (alignment: .top) {
                 VStack(spacing: 20) {
-                    PostFormView(photos: $photos,comment: $comment,listPosts: $listPosts, focusField: $focusField)
+                    PostFormView(photos: $photos,comment: $comment, listPosts: $listPosts, focusField: $focusField)
                         .blur(radius: focusPost != -1 ? 12 : 0)
                     
-                    ForEach(listPosts.indices, id: \.self) { index in
+                    ForEach($listPosts.indices, id: \.self) { index in
                         PostCardView(post: $listPosts[index],
                                      listPost: $listPosts,
                                      focusPost: $focusPost,

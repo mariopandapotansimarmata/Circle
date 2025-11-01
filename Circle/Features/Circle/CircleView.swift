@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CircleView: View {
-    @State private var currentIndex: Int = 1
+    @State private var currentIndex: Int = 2
     var tabMenu = ["Overview", "Posts", "Resource",]
     
     

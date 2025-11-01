@@ -6,7 +6,9 @@
 //
 
 import Foundation
+import SwiftUI
 
+@Observable
 class Replies: Identifiable {
     var id: UUID = UUID()
     var name: String

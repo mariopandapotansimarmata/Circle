@@ -5,6 +5,9 @@
 //  Created by Mario Pandapotan Simarmata on 30/10/25.
 //
 
+import SwiftUI
+
+@Observable
 class Host {
     var name: String
     var title: String
