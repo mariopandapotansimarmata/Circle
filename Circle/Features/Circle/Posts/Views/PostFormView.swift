@@ -57,7 +57,7 @@ struct PostFormView: View {
                     .onTapGesture {
                         let newPost = Post(name: "Mario", createdAt: "today", photos: photos, replies: [], likes: 0, isEdited: false, isLockedComment: false, note: comment)
 
-                        listPosts.append(newPost)
+                        listPosts.insert(newPost, at: 0)
                         
                         photos = []
                         comment = ""
