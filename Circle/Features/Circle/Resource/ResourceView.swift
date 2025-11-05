@@ -12,10 +12,10 @@ struct ResourceView: View {
         VStack{
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {
-                    ResourceCardView(title: "Host Media")
-                    ResourceCardView(title: "Host Files",typeFile: .file)
-                    ResourceCardView(title: "Member Media",background1: Color(DesignColors.purple300), background2: Color(DesignColors.purple300))
-                    ResourceCardView(title: "Member Files",background1: Color(DesignColors.purple300),typeFile: .file)
+                    ResourceCardView(title: "Host Media", mediaType: .host)
+                    ResourceCardView(title: "Host Files",typeFile: .file, mediaType: .host)
+                    ResourceCardView(title: "Member Media",background1: Color(DesignColors.purple300), background2: Color(DesignColors.purple300), mediaType: .media)
+                    ResourceCardView(title: "Member Files",background1: Color(DesignColors.purple300),typeFile: .file, mediaType: .media)
                 }
                 .padding(.horizontal, 20)
             }
@@ -26,4 +26,9 @@ struct ResourceView: View {
 
 #Preview {
     CircleView()
+}
+
+enum MediaType {
+    case host
+    case media
 }

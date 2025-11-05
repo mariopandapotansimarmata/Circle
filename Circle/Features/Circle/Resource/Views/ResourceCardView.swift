@@ -13,6 +13,7 @@ struct ResourceCardView: View {
     var background1: Color?
     var background2: Color?
     var typeFile: TypeFile = .media
+    var mediaType: MediaType
     
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
@@ -44,7 +45,7 @@ struct ResourceCardView: View {
             .clipShape(RoundedRectangle(cornerRadius: 20))
             
             NavigationLink{
-                MediaView()
+                MediaView(mediaType: mediaType,title: title)
             } label: {
                 HStack {
                     Text("See All")

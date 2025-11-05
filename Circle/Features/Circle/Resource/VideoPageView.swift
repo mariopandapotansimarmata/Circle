@@ -104,6 +104,5 @@ struct VideoPageView: View {
 }
 
 #Preview {
-    MediaView()
-    //    CircleView()
+    MediaView(mediaType: .host, title: "Hello")
 }

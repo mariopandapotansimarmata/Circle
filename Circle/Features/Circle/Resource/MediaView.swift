@@ -9,20 +9,22 @@ import SwiftUI
 
 struct MediaView: View {
     @State private var currentIndex: Int = 1
-    
+    var mediaType: MediaType
+    var title: String
     var tabMenu = ["Photos", "Videos",]
     
     var body: some View {
         VStack {
             HStack (spacing: 28 ) {
-                Image("profileHost")
+                Image(mediaType == .host ? "profileHost" : "circleLogo")
+
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .clipShape(.circle)
                     .frame(width:70,height: 70)
                 
                 VStack (alignment: .leading, spacing: 4){
-                    Text("Host Media")
+                    Text(title)
                     HStack(spacing: 20) {
                         ForEach(Array(tabMenu.enumerated()), id: \.offset) { index, item in
                             TabServiceView(text: item, isSelected: currentIndex == index)
@@ -64,5 +66,5 @@ struct MediaView: View {
 }
 
 #Preview {
-    MediaView()
+    MediaView(mediaType: .host, title: "Hello")
 }
