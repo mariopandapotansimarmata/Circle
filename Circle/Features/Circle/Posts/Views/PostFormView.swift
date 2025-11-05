@@ -12,6 +12,8 @@ struct PostFormView: View {
     @Binding var comment: String
     @Binding var listPosts: [Post]
     @FocusState.Binding var focusField: Bool
+    @State private var isShowCamera = false
+    @State private var image: UIImage? = nil
 
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
@@ -43,6 +45,9 @@ struct PostFormView: View {
             
             HStack() {
                 ChipButton(title: "Camera")
+                    .onTapGesture {
+                        isShowCamera = true
+                    }
                 ChipButton(title: "Photos", color: !photos.isEmpty ? DesignColors.photoChipBack : DesignColors.whiteColor)
                     .onTapGesture {
                         let image = "image1"
@@ -77,10 +82,71 @@ struct PostFormView: View {
                 .stroke(Color(DesignColors.cardBorder), lineWidth: 1)
         }
         .cornerRadius(15)
-        
+        .fullScreenCover(isPresented: $isShowCamera) {
+            ImagePicker(sourceType: .camera, photos: $photos)
+                .ignoresSafeArea()
+        }
     }
 }
 
 #Preview {
     CircleView()
+}
+
+struct ImagePicker: UIViewControllerRepresentable {
+    @Environment(\.dismiss) var dismiss
+    var sourceType: UIImagePickerController.SourceType = .camera
+    @Binding var photos: [String]
+
+    func makeUIViewController(context: Context) -> UIImagePickerController {
+        let picker = UIImagePickerController()
+        picker.sourceType = sourceType
+        picker.delegate = context.coordinator
+        picker.modalPresentationStyle = .fullScreen
+        return picker
+    }
+
+    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {}
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
+    
+    class Coordinator: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+        let parent: ImagePicker
+        init(_ parent: ImagePicker) {
+            self.parent = parent
+        }
+
+        func imagePickerController(
+            _ picker: UIImagePickerController,
+            didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]
+        ) {
+            if let image = info[.originalImage] as? UIImage {
+                if let path = saveImageToDocument(image: image) {
+                    if parent.photos.count < 5 {
+                        parent.photos.append(path)   // ✅ langsung masuk ke array
+                    }
+                }
+            }
+            parent.dismiss()
+        }
+    }
+}
+
+func saveImageToDocument(image: UIImage) -> String? {
+    guard let data = image.jpegData(compressionQuality: 0.8) else { return nil }
+
+    let filename = UUID().uuidString + ".jpg"
+    let url = FileManager.default
+        .urls(for: .documentDirectory, in: .userDomainMask)[0]
+        .appendingPathComponent(filename)
+
+    do {
+        try data.write(to: url)
+        return url.path   // ✅ return String
+    } catch {
+        print("❌ Error saving file:", error)
+        return nil
+    }
 }

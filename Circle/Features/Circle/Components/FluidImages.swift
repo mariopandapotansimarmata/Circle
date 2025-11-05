@@ -51,42 +51,15 @@ struct FluidImages: View {
             if photos.count < 5 {
                 VStack(spacing: 15) {
                     if photos.count > 0 {
-                        ZStack (alignment: .topTrailing) {
-                            Image(photos[0])
-                                .resizable()
-                                .overlay {
-                                    RoundedRectangle(cornerRadius: 15)
-                                        .stroke(Color(DesignColors.cardBorder),
-                                                lineWidth: 1)
-                                }
-                                .clipShape(RoundedRectangle(cornerRadius: 15))
-                            if deletable {
-                                Image(DesignImages.closeIcon)
-                                    .padding(8)
-                                    .onTapGesture {
-                                        photos.remove(at: 0)
-                                    }
-                            }
-                           
+                        ZStack(alignment: .topTrailing) {
+                            fluidImage(photos[0])
+                            deleteButton(index: 0)
                         }
                     }
                     if photos.count > 3 {
-                        ZStack (alignment: .topTrailing) {
-                            Image(photos[3])
-                                .resizable()
-                                .overlay {
-                                    RoundedRectangle(cornerRadius: 15)
-                                        .stroke(Color(DesignColors.cardBorder),
-                                                lineWidth: 1)
-                                }
-                                .clipShape(RoundedRectangle(cornerRadius: 15))
-                            if deletable {
-                                Image(DesignImages.closeIcon)
-                                    .padding(8)
-                                    .onTapGesture {
-                                        photos.remove(at: 3)
-                                    }
-                            }
+                        ZStack(alignment: .topTrailing) {
+                            fluidImage(photos[3])
+                            deleteButton(index: 3)
                         }
                     }
                 }
@@ -95,78 +68,72 @@ struct FluidImages: View {
                 
                 VStack(spacing: 15) {
                     if photos.count > 1 {
-                        ZStack (alignment: .topTrailing) {
-                            Image(photos[1])
-                                .resizable()
-                                .overlay {
-                                    RoundedRectangle(cornerRadius: 15)
-                                        .stroke(Color(DesignColors.cardBorder),
-                                                lineWidth: 1)
-                                }
-                                .clipShape(RoundedRectangle(cornerRadius: 15))
-                            if deletable {
-                                Image(DesignImages.closeIcon)
-                                    .padding(8)
-                                    .onTapGesture {
-                                        photos.remove(at: 1)
-                                    }
-                            }
+                        ZStack(alignment: .topTrailing) {
+                            fluidImage(photos[1])
+                            deleteButton(index: 1)
                         }
                     }
                     
                     if photos.count > 2 {
-                        ZStack (alignment: .topTrailing) {
-                            Image(photos[2])
-                                .resizable()
-                                .overlay {
-                                    RoundedRectangle(cornerRadius: 15)
-                                        .stroke(Color(DesignColors.cardBorder),
-                                                lineWidth: 1)
-                                }
-                                .clipShape(RoundedRectangle(cornerRadius: 15))
-                            if deletable {
-                                Image(DesignImages.closeIcon)
-                                    .padding(8)
-                                    .onTapGesture {
-                                        photos.remove(at: 2)
-                                    }
-                            }
+                        ZStack(alignment: .topTrailing) {
+                            fluidImage(photos[2])
+                            deleteButton(index: 2)
                         }
                     }
                 }
                 .frame(maxHeight: mediaMaxHeightRight)
                 .frame(maxWidth: mediaMaxWidthRight)
+                
             } else {
                 HStack {
                     ForEach(photos.indices, id: \.self) { index in
-                        let photo = photos[index]
                         ZStack(alignment: .topTrailing) {
-                            Image(photo)
-                                .resizable()
+                            fluidImage(photos[index])
                                 .frame(maxHeight: 55)
                                 .frame(maxWidth: 48)
-                                .overlay {
-                                    RoundedRectangle(cornerRadius: 15)
-                                        .stroke(Color(DesignColors.cardBorder), lineWidth: 1)
-                                }
-                                .clipShape(RoundedRectangle(cornerRadius: 15))
-
-                            if deletable {
-                                Image(DesignImages.closeIcon)
-                                    .padding(8)
-                                    .onTapGesture {
-                                        photos.remove(at: index)
-                                    }
-                            }
+                            
+                            deleteButton(index: index)
                         }
                     }
                 }
-//                .padding(.vertical)
             }
         }
     }
-}
+    
+    @ViewBuilder
+    private func fluidImage(_ nameOrPath: String) -> some View {
+        if FileManager.default.fileExists(atPath: nameOrPath) {
+            // ✅ image dari local path
+            if let uiImage = UIImage(contentsOfFile: nameOrPath) {
+                Image(uiImage: uiImage)
+                    .resizable()
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 15)
+                            .stroke(Color(DesignColors.cardBorder), lineWidth: 1)
+                    }
+                    .clipShape(RoundedRectangle(cornerRadius: 15))
+            }
+        } else {
+            // ✅ image dari asset
+            Image(nameOrPath)
+                .resizable()
+                .overlay {
+                    RoundedRectangle(cornerRadius: 15)
+                        .stroke(Color(DesignColors.cardBorder), lineWidth: 1)
+                }
+                .clipShape(RoundedRectangle(cornerRadius: 15))
+        }
+    }
 
-#Preview {
-    CircleView()
+    
+    @ViewBuilder
+    private func deleteButton(index: Int) -> some View {
+        if deletable {
+            Image(DesignImages.closeIcon)
+                .padding(8)
+                .onTapGesture {
+                    photos.remove(at: index)
+                }
+        }
+    }
 }
