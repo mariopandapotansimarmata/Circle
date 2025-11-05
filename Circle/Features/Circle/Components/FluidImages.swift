@@ -53,6 +53,7 @@ struct FluidImages: View {
                     if photos.count > 0 {
                         ZStack(alignment: .topTrailing) {
                             fluidImage(photos[0])
+                                .frame(maxWidth: .infinity)
                             deleteButton(index: 0)
                         }
                     }
@@ -103,29 +104,54 @@ struct FluidImages: View {
     @ViewBuilder
     private func fluidImage(_ nameOrPath: String) -> some View {
         if FileManager.default.fileExists(atPath: nameOrPath) {
-            // ✅ image dari local path
             if let uiImage = UIImage(contentsOfFile: nameOrPath) {
                 Image(uiImage: uiImage)
                     .resizable()
+                    .scaledToFit()
+                    .frame(maxWidth: .infinity, alignment: .center)
                     .overlay {
                         RoundedRectangle(cornerRadius: 15)
                             .stroke(Color(DesignColors.cardBorder), lineWidth: 1)
                     }
                     .clipShape(RoundedRectangle(cornerRadius: 15))
+      
+            } else {
+                fileNameView(nameOrPath)
             }
         } else {
-            // ✅ image dari asset
-            Image(nameOrPath)
-                .resizable()
-                .overlay {
-                    RoundedRectangle(cornerRadius: 15)
-                        .stroke(Color(DesignColors.cardBorder), lineWidth: 1)
-                }
-                .clipShape(RoundedRectangle(cornerRadius: 15))
+            let assetImage = UIImage(named: nameOrPath)
+            if let assetImage {
+                Image(uiImage: assetImage)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 15)
+                            .stroke(Color(DesignColors.cardBorder), lineWidth: 1)
+                    }
+                    .clipShape(RoundedRectangle(cornerRadius: 15))
+            } else {
+                fileNameView(nameOrPath)
+            }
         }
     }
 
-    
+    @ViewBuilder
+    private func fileNameView(_ path: String) -> some View {
+        let filename = URL(fileURLWithPath: path).lastPathComponent
+        Text(filename)
+            .font(.custom(DesignFonts.InterMedium, size: 11))
+            .frame(maxHeight: 24)
+            .frame(maxWidth: 120)
+            .padding(.vertical, 12)
+            .padding(.horizontal, 10)
+            .background(Color(DesignColors.fileBox))
+            .overlay(
+                RoundedRectangle(cornerRadius: 15)
+                    .stroke(Color(DesignColors.cardBorder), lineWidth: 1)
+            )
+            .clipShape(RoundedRectangle(cornerRadius: 15))
+    }
+
     @ViewBuilder
     private func deleteButton(index: Int) -> some View {
         if deletable {
